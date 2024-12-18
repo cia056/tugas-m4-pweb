@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validasi Username dan Password</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+        }
+        .message {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Form Login</h2>
+    <form id="loginForm">
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" name="username"><br><br>
+        
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password"><br><br>
+        
+        <button type="submit">Login</button>
+    </form>
+
+    <div class="message" id="message"></div>
+
+    <script>
+        // Username dan password yang benar
+        const validUsername = "user123";
+        const validPassword = "pass123";
+
+        // Menangani pengiriman form
+        document.getElementById("loginForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Mencegah form dari pengiriman default
+
+            // Mengambil nilai input
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+            const messageDiv = document.getElementById("message");
+
+            // Validasi input
+            if (username === "" || password === "") {
+                messageDiv.textContent = "Username dan password tidak boleh kosong!";
+                messageDiv.style.color = "red";
+            } else if (username === validUsername && password === validPassword) {
+                messageDiv.textContent = "Login berhasil!";
+                messageDiv.style.color = "green";
+            } else {
+                messageDiv.textContent = "Login gagal! Username atau password salah.";
+                messageDiv.style.color = "red";
+            }
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hitung Gaji</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .form-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        label {
+            width: 150px; /* Lebar label untuk keseragaman */
+            margin-right: 10px; /* Jarak antara label dan input */
+        }
+        input, select {
+            padding: 5px;
+            width: 200px; /* Lebar input dan select */
+        }
+        button {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>PERHITUNGAN GAJI</h2>
+
+    <div class="form-group">
+        <label for="golongan">Golongan:</label>
+        <select id="golongan">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="jumlahAnak">Jumlah Anak:</label>
+        <input type="number" id="jumlahAnak" min="0" value="0">
+    </div>
+
+    <div class="form-group">
+        <button onclick="hitungGaji()">Hitung</button>
+        <button onclick="resetForm()">Cancel</button>
+    </div>
+
+    <div class="form-group">
+        <label for="gajiPokok">Gaji Pokok:</label>
+        <input type="text" id="gajiPokok" readonly>
+    </div>
+
+    <div class="form-group">
+        <label for="tunjangan">Tunjangan:</label>
+        <input type="text" id="tunjangan" readonly>
+    </div>
+
+    <div class="form-group">
+        <label for="gajiBersih">Gaji Bersih:</label>
+        <input type="text" id="gajiBersih" readonly>
+    </div>
+
+    <script>
+        function hitungGaji() {
+            const golongan = document.getElementById("golongan").value;
+            const jumlahAnak = parseInt(document.getElementById("jumlahAnak").value) || 0;
+
+            // Tentukan gaji pokok dan persen tunjangan berdasarkan golongan
+            let gajiPokok = 0;
+            let persenTunjangan = 0;
+            
+            switch (golongan) {
+                case "1":
+                    gajiPokok = 250000;
+                    persenTunjangan = 5;
+                    break;
+                case "2":
+                    gajiPokok = 300000;
+                    persenTunjangan = 10;
+                    break;
+                case "3":
+                    gajiPokok = 350000;
+                    persenTunjangan = 15;
+                    break;
+                default:
+                    gajiPokok = 0;
+                    persenTunjangan = 0;
+                    break;
+            }
+
+            // Hitung tunjangan
+            const tunjangan = (jumlahAnak * gajiPokok) * (persenTunjangan / 100);
+            // Hitung gaji bersih
+            const gajiBersih = gajiPokok + tunjangan;
+
+            // Tampilkan hasil
+            document.getElementById("gajiPokok").value = "Rp " + gajiPokok.toLocaleString();
+            document.getElementById("tunjangan").value = "Rp " + tunjangan.toLocaleString();
+            document.getElementById("gajiBersih").value = "Rp " + gajiBersih.toLocaleString();
+        }
+
+        function resetForm() {
+            document.getElementById("golongan").value = "1";
+            document.getElementById("jumlahAnak").value = "0";
+            document.getElementById("gajiPokok").value = "";
+            document.getElementById("tunjangan").value = "";
+            document.getElementById("gajiBersih").value = "";
+        }
+    </script>
+
+</body>
+</html>
